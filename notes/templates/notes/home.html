@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+  <!-- Left: Create Note Form -->
+  <div class="col-lg-4 mb-4">
+    <div class="card form-card p-4">
+      <h5 class="mb-3 fw-bold"><i class="bi bi-plus-circle me-2 text-primary"></i>New Note</h5>
+
+      <form method="POST" action="{% url 'create_note' %}">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label for="title" class="form-label fw-semibold">Title</label>
+          <input type="text"
+                 id="title"
+                 name="title"
+                 class="form-control"
+                 placeholder="Note title…"
+                 required>
+        </div>
+
+        <div class="mb-3">
+          <label for="content" class="form-label fw-semibold">Content</label>
+          <textarea id="content"
+                    name="content"
+                    rows="5"
+                    class="form-control"
+                    placeholder="Write your note here…"
+                    required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="bi bi-save me-1"></i>Save Note
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Right: Notes List -->
+  <div class="col-lg-8">
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h5 class="fw-bold mb-0">
+        <i class="bi bi-sticky me-2 text-warning"></i>
+        {% if query %}
+          Results for "<em>{{ query }}</em>"
+        {% else %}
+          All Notes
+        {% endif %}
+      </h5>
+      <span class="badge bg-secondary">{{ notes.count }} note{{ notes.count|pluralize }}</span>
+    </div>
+
+    {% if notes %}
+      <div class="row row-cols-1 row-cols-md-2 g-3">
+        {% for note in notes %}
+        <div class="col">
+          <div class="card note-card h-100">
+            <div class="card-body">
+              <h6 class="card-title">{{ note.title }}</h6>
+              <p class="card-text">{{ note.content|truncatechars:120 }}</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 d-flex gap-2 pb-3 px-3">
+              <a href="{% url 'edit_note' note.pk %}"
+                 class="btn btn-outline-primary btn-sm flex-fill">
+                <i class="bi bi-pencil me-1"></i>Edit
+              </a>
+
+              <!-- Delete with confirmation modal trigger -->
+              <button type="button"
+                      class="btn btn-outline-danger btn-sm flex-fill"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal{{ note.pk }}">
+                <i class="bi bi-trash me-1"></i>Delete
+              </button>
+            </div>
+            <div class="px-3 pb-2">
+              <small class="text-muted">
+                <i class="bi bi-clock me-1"></i>{{ note.created_at|date:"M d, Y" }}
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteModal{{ note.pk }}" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header border-0">
+                <h6 class="modal-title fw-bold text-danger">
+                  <i class="bi bi-exclamation-triangle me-2"></i>Delete Note
+                </h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body pt-0">
+                Are you sure you want to delete <strong>"{{ note.title }}"</strong>?
+              </div>
+              <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action="{% url 'delete_note' note.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <div class="empty-state">
+        <i class="bi bi-journal-x d-block"></i>
+        {% if query %}
+          <p class="fw-semibold">No notes found for "{{ query }}"</p>
+          <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">Clear search</a>
+        {% else %}
+          <p class="fw-semibold">No notes yet</p>
+          <p class="text-muted small">Use the form on the left to add your first note!</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

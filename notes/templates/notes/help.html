@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block title %}Help{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+
+    <div class="d-flex align-items-center mb-4">
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm me-3">
+        <i class="bi bi-arrow-left"></i>
+      </a>
+      <h4 class="fw-bold mb-0"><i class="bi bi-question-circle me-2 text-primary"></i>Help & FAQ</h4>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="card border-0 shadow-sm mb-4 p-4">
+      <h5 class="fw-bold mb-3">Getting Started</h5>
+      <ol class="text-muted">
+        <li class="mb-2">Go to the <a href="{% url 'home' %}">Home</a> page.</li>
+        <li class="mb-2">Fill in a <strong>Title</strong> and <strong>Content</strong> in the form on the left.</li>
+        <li class="mb-2">Click <strong>Save Note</strong> — your note will appear in the grid.</li>
+        <li class="mb-2">Use <strong>Edit</strong> or <strong>Delete</strong> buttons on each card to manage notes.</li>
+      </ol>
+    </div>
+
+    <!-- FAQ Accordion -->
+    <h5 class="fw-bold mb-3">Frequently Asked Questions</h5>
+    <div class="accordion shadow-sm" id="faqAccordion">
+
+      <div class="accordion-item border-0 mb-2 rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faq1">
+            How do I search for a note?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            Use the search bar in the top navigation bar. Type any keyword from your note's
+            title or content and press Enter. The results will be filtered on the Home page.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 mb-2 rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faq2">
+            Can I recover a deleted note?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            No — deletions are permanent. A confirmation dialog is shown before any
+            note is deleted, so make sure before confirming.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 mb-2 rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faq3">
+            Is there a limit on how many notes I can create?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            No limit! You can create as many notes as you like. They are stored locally
+            in an SQLite database.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 rounded">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed fw-semibold" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faq4">
+            Where is my data stored?
+          </button>
+        </h2>
+        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body text-muted">
+            All notes are stored in a local SQLite database file (<code>db.sqlite3</code>)
+            in the project directory. No data is sent to any external server.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{% url 'home' %}" class="btn btn-primary">
+        <i class="bi bi-house me-1"></i>Back to Home
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
