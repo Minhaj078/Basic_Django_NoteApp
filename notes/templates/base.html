@@ -65,7 +65,7 @@
                 radial-gradient(ellipse at 85% 20%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 85%, rgba(45, 212, 191, 0.025) 0%, transparent 50%);
             pointer-events: none;
-            z-index: 0;
+            z-index: -1;
         }
 
         /* Floating Ambient Orbs — very soft */
@@ -75,7 +75,7 @@
             filter: blur(100px);
             opacity: 0.25;
             pointer-events: none;
-            z-index: 0;
+            z-index: -1;
         }
 
         .bg-orb-1 {
@@ -121,10 +121,9 @@
         main {
             flex: 1;
             position: relative;
-            z-index: 1;
         }
 
-        .container { position: relative; z-index: 1; }
+        .container { position: relative; }
 
         /* ===== Glass Card Base ===== */
         .glass-card {
