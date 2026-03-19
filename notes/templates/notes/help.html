@@ -1,88 +1,166 @@
 {% extends 'base.html' %}
 {% block title %}Help{% endblock %}
 
+{% block extra_css %}
+  .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      transition: var(--transition-bounce);
+  }
+
+  .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.8rem 0;
+      transition: var(--transition-smooth);
+      border-radius: 10px;
+      padding-left: 0.5rem;
+  }
+
+  .step-item:hover {
+      background: rgba(0, 240, 255, 0.03);
+      padding-left: 1rem;
+  }
+
+  .step-item:hover .step-number {
+      transform: scale(1.1) rotateZ(-5deg);
+  }
+
+  .faq-accordion .accordion-item {
+      border-radius: 12px !important;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      transition: var(--transition-smooth);
+  }
+
+  .faq-accordion .accordion-item:hover {
+      border-color: rgba(168, 85, 247, 0.2) !important;
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.05);
+  }
+
+  .faq-accordion .accordion-button {
+      padding: 1rem 1.2rem;
+      border-radius: 12px !important;
+  }
+
+  .faq-accordion .accordion-button:not(.collapsed) {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+  }
+{% endblock %}
+
 {% block content %}
 
 <div class="row justify-content-center">
   <div class="col-lg-8">
 
-    <div class="d-flex align-items-center mb-4">
+    <div class="d-flex align-items-center mb-4 animate-fade-in-up">
       <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm me-3">
         <i class="bi bi-arrow-left"></i>
       </a>
-      <h4 class="fw-bold mb-0"><i class="bi bi-question-circle me-2 text-primary"></i>Help & FAQ</h4>
+      <h4 class="fw-bold mb-0">
+        <i class="bi bi-question-circle me-2" style="color: var(--accent-blue);"></i>
+        <span class="section-title">Help & FAQ</span>
+      </h4>
     </div>
 
     <!-- Quick Start -->
-    <div class="card border-0 shadow-sm mb-4 p-4">
-      <h5 class="fw-bold mb-3">Getting Started</h5>
-      <ol class="text-muted">
-        <li class="mb-2">Go to the <a href="{% url 'home' %}">Home</a> page.</li>
-        <li class="mb-2">Fill in a <strong>Title</strong> and <strong>Content</strong> in the form on the left.</li>
-        <li class="mb-2">Click <strong>Save Note</strong> — your note will appear in the grid.</li>
-        <li class="mb-2">Use <strong>Edit</strong> or <strong>Delete</strong> buttons on each card to manage notes.</li>
-      </ol>
+    <div class="glass-card mb-4 p-4 animate-fade-in-up delay-1">
+      <h5 class="fw-bold mb-3" style="color: var(--text-primary);">
+        <i class="bi bi-rocket-takeoff me-2" style="color: var(--accent-green);"></i>Getting Started
+      </h5>
+
+      <div class="step-item">
+        <span class="step-number" style="background: rgba(99, 102, 241, 0.08); color: var(--accent-blue);">1</span>
+        <span style="color: var(--text-secondary);">Go to the <a href="{% url 'home' %}">Home</a> page.</span>
+      </div>
+      <div class="step-item">
+        <span class="step-number" style="background: rgba(139, 92, 246, 0.08); color: var(--accent-violet);">2</span>
+        <span style="color: var(--text-secondary);">Fill in a <strong style="color: var(--text-primary);">Title</strong> and <strong style="color: var(--text-primary);">Content</strong> in the form on the left.</span>
+      </div>
+      <div class="step-item">
+        <span class="step-number" style="background: rgba(45, 212, 191, 0.08); color: var(--accent-teal);">3</span>
+        <span style="color: var(--text-secondary);">Click <strong style="color: var(--text-primary);">Save Note</strong> — your note will appear in the grid.</span>
+      </div>
+      <div class="step-item">
+        <span class="step-number" style="background: rgba(74, 222, 128, 0.08); color: var(--accent-green);">4</span>
+        <span style="color: var(--text-secondary);">Use <strong style="color: var(--text-primary);">Edit</strong> or <strong style="color: var(--text-primary);">Delete</strong> buttons on each card to manage notes.</span>
+      </div>
     </div>
 
     <!-- FAQ Accordion -->
-    <h5 class="fw-bold mb-3">Frequently Asked Questions</h5>
-    <div class="accordion shadow-sm" id="faqAccordion">
+    <h5 class="fw-bold mb-3 animate-fade-in-up delay-3">
+      <span class="section-title">Frequently Asked Questions</span>
+    </h5>
+    <div class="accordion faq-accordion animate-fade-in-up delay-4" id="faqAccordion">
 
-      <div class="accordion-item border-0 mb-2 rounded">
+      <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed fw-semibold" type="button"
                   data-bs-toggle="collapse" data-bs-target="#faq1">
+            <i class="bi bi-search me-2" style="color: var(--accent-blue);"></i>
             How do I search for a note?
           </button>
         </h2>
         <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body text-muted">
+          <div class="accordion-body">
             Use the search bar in the top navigation bar. Type any keyword from your note's
             title or content and press Enter. The results will be filtered on the Home page.
           </div>
         </div>
       </div>
 
-      <div class="accordion-item border-0 mb-2 rounded">
+      <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed fw-semibold" type="button"
                   data-bs-toggle="collapse" data-bs-target="#faq2">
+            <i class="bi bi-trash me-2" style="color: #ff6b6b;"></i>
             Can I recover a deleted note?
           </button>
         </h2>
         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body text-muted">
+          <div class="accordion-body">
             No — deletions are permanent. A confirmation dialog is shown before any
             note is deleted, so make sure before confirming.
           </div>
         </div>
       </div>
 
-      <div class="accordion-item border-0 mb-2 rounded">
+      <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed fw-semibold" type="button"
                   data-bs-toggle="collapse" data-bs-target="#faq3">
+            <i class="bi bi-infinity me-2" style="color: var(--accent-violet);"></i>
             Is there a limit on how many notes I can create?
           </button>
         </h2>
         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body text-muted">
+          <div class="accordion-body">
             No limit! You can create as many notes as you like. They are stored locally
             in an SQLite database.
           </div>
         </div>
       </div>
 
-      <div class="accordion-item border-0 rounded">
+      <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed fw-semibold" type="button"
                   data-bs-toggle="collapse" data-bs-target="#faq4">
+            <i class="bi bi-database me-2" style="color: var(--accent-teal);"></i>
             Where is my data stored?
           </button>
         </h2>
         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body text-muted">
-            All notes are stored in a local SQLite database file (<code>db.sqlite3</code>)
+          <div class="accordion-body">
+            All notes are stored in a local SQLite database file (<code style="color: var(--accent-cyan);">db.sqlite3</code>)
             in the project directory. No data is sent to any external server.
           </div>
         </div>
@@ -90,8 +168,8 @@
 
     </div>
 
-    <div class="text-center mt-4">
-      <a href="{% url 'home' %}" class="btn btn-primary">
+    <div class="text-center mt-4 animate-fade-in-up delay-6">
+      <a href="{% url 'home' %}" class="btn btn-primary px-4">
         <i class="bi bi-house me-1"></i>Back to Home
       </a>
     </div>

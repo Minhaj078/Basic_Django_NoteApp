@@ -6,19 +6,22 @@
 <div class="row justify-content-center">
   <div class="col-md-7 col-lg-6">
 
-    <div class="d-flex align-items-center mb-3">
+    <div class="d-flex align-items-center mb-3 animate-fade-in-up">
       <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm me-3">
         <i class="bi bi-arrow-left"></i>
       </a>
-      <h5 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2 text-primary"></i>Edit Note</h5>
+      <h5 class="mb-0 fw-bold">
+        <i class="bi bi-pencil-square me-2" style="color: var(--accent-blue);"></i>
+        <span class="section-title">Edit Note</span>
+      </h5>
     </div>
 
-    <div class="card form-card p-4">
+    <div class="form-card p-4 animate-fade-in-up delay-2">
       <form method="POST" action="{% url 'edit_note' note.pk %}">
         {% csrf_token %}
 
         <div class="mb-3">
-          <label for="title" class="form-label fw-semibold">Title</label>
+          <label for="title" class="form-label">Title</label>
           <input type="text"
                  id="title"
                  name="title"
@@ -28,7 +31,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="content" class="form-label fw-semibold">Content</label>
+          <label for="content" class="form-label">Content</label>
           <textarea id="content"
                     name="content"
                     rows="7"
@@ -46,8 +49,9 @@
       </form>
     </div>
 
-    <p class="text-muted small mt-2 text-center">
-      <i class="bi bi-clock me-1"></i>Created: {{ note.created_at|date:"M d, Y H:i" }}
+    <p class="small mt-3 text-center animate-fade-in-up delay-4">
+      <i class="bi bi-clock me-1" style="color: var(--accent-blue);"></i>
+      Created: {{ note.created_at|date:"M d, Y H:i" }}
     </p>
 
   </div>
